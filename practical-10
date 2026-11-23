@@ -1,0 +1,32 @@
+def find(parent, i):
+    if parent[i] != i:
+        parent[i] = find(parent, parent[i])
+    return parent[i]
+
+def kruskal(edges, n):
+    parent = list(range(n))
+    edges.sort()
+    cost = 0
+
+    for w, u, v in edges:
+        x = find(parent, u)
+        y = find(parent, v)
+
+        if x != y:
+            print(u, "-", v, ":", w)
+            parent[x] = y
+            cost += w
+
+    print("Minimum Cost:", cost)
+
+
+n = int(input("Enter number of vertices: "))
+e = int(input("Enter number of edges: "))
+
+edges = []
+
+for i in range(e):
+    u, v, w = map(int, input("Enter u v weight: ").split())
+    edges.append((w, u, v))
+
+kruskal(edges, n)
