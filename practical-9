@@ -1,0 +1,32 @@
+
+n = int(input("Enter vertices: "))
+g = []
+
+for i in range(n):
+    g.append(list(map(int, input().split())))
+
+vis = [False] * n
+vis[0] = True
+cost = 0
+
+print("MST Edges:")
+
+for _ in range(n - 1):
+    m = float('inf')
+    
+    for i in range(n):
+        for j in range(n):
+            if vis[i] and not vis[j] and g[i][j] != 0:
+                if g[i][j] < m:
+                    m = g[i][j]
+                    x, y = i, j
+
+    if m == float('inf'):
+        print("MST not possible")
+        exit()
+
+    print(x, "-", y, ":", m)
+    cost += m
+    vis[y] = True
+
+print("Minimum Cost:", cost)
